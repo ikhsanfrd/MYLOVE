@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Initialize all features
   createFloatingHearts();
   initCountdown();
-  initPhotoUpload();
+  initCarousel();
   initSmoothScroll();
 });
 
@@ -94,84 +94,66 @@ function initCountdown() {
   setInterval(updateCountdown, 1000);
 }
 
-// Initialize photo upload functionality
-function initPhotoUpload() {
-  const photoPlaceholders = document.querySelectorAll(".photo-placeholder");
+// Initialize carousel functionality
+function initCarousel() {
+  const track = document.getElementById("carouselTrack");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  const dotsContainer = document.getElementById("carouselDots");
 
-  photoPlaceholders.forEach((placeholder, index) => {
-    // Create file input
-    const fileInput = document.createElement("input");
-    fileInput.type = "file";
-    fileInput.accept = "image/*";
-    fileInput.style.display = "none";
-    fileInput.id = `photo-upload-${index + 1}`;
+  let currentIndex = 0;
+  const slides = track.querySelectorAll(".carousel-slide");
+  const totalSlides = slides.length;
 
-    // Create upload button
-    const uploadBtn = document.createElement("button");
-    uploadBtn.className = "upload-btn";
-    uploadBtn.textContent = "📷 Add Photo";
-    uploadBtn.onclick = (e) => {
-      e.stopPropagation();
-      fileInput.click();
-    };
-
-    placeholder.appendChild(fileInput);
-    placeholder.appendChild(uploadBtn);
-
-    // Handle file selection
-    fileInput.addEventListener("change", function (e) {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function (event) {
-          // Remove existing content
-          placeholder.innerHTML = "";
-
-          // Create image element
-          const img = document.createElement("img");
-          img.src = event.target.result;
-          img.alt = `Photo ${index + 1}`;
-          placeholder.appendChild(img);
-
-          // Save to localStorage
-          savePhotoToStorage(index + 1, event.target.result);
-        };
-        reader.readAsDataURL(file);
-      }
-    });
-
-    // Click to upload
-    placeholder.addEventListener("click", () => {
-      fileInput.click();
-    });
+  // Create dots
+  slides.forEach((_, index) => {
+    const dot = document.createElement("div");
+    dot.className = "carousel-dot" + (index === 0 ? " active" : "");
+    dot.addEventListener("click", () => goToSlide(index));
+    dotsContainer.appendChild(dot);
   });
 
-  // Load saved photos
-  loadSavedPhotos();
-}
+  const dots = dotsContainer.querySelectorAll(".carousel-dot");
 
-// Save photo to localStorage
-function savePhotoToStorage(photoNumber, dataUrl) {
-  try {
-    localStorage.setItem(`romantic-photo-${photoNumber}`, dataUrl);
-  } catch (e) {
-    console.log("Photo too large to save locally");
+  function updateCarousel() {
+    track.style.transform = `translateX(-${currentIndex * 100}%)`;
+    dots.forEach((dot, index) => {
+      dot.classList.toggle("active", index === currentIndex);
+    });
   }
-}
 
-// Load saved photos from localStorage
-function loadSavedPhotos() {
-  const photoPlaceholders = document.querySelectorAll(".photo-placeholder");
+  function goToSlide(index) {
+    currentIndex = index;
+    updateCarousel();
+  }
 
-  photoPlaceholders.forEach((placeholder, index) => {
-    const savedPhoto = localStorage.getItem(`romantic-photo-${index + 1}`);
-    if (savedPhoto) {
-      placeholder.innerHTML = "";
-      const img = document.createElement("img");
-      img.src = savedPhoto;
-      img.alt = `Photo ${index + 1}`;
-      placeholder.appendChild(img);
-    }
+  function nextSlide() {
+    currentIndex = (currentIndex + 1) % totalSlides;
+    updateCarousel();
+  }
+
+  function prevSlide() {
+    currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+    updateCarousel();
+  }
+
+  // Button events
+  nextBtn.addEventListener("click", nextSlide);
+  prevBtn.addEventListener("click", prevSlide);
+
+  // Auto-play
+  let autoPlay = setInterval(nextSlide, 4000);
+
+  // Pause on hover
+  track.addEventListener("mouseenter", () => clearInterval(autoPlay));
+  track.addEventListener("mouseleave", () => {
+    autoPlay = setInterval(nextSlide, 4000);
+  });
+
+  // Keyboard navigation
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowRight") nextSlide();
+    if (e.key === "ArrowLeft") prevSlide();
   });
 }
 
@@ -253,27 +235,12 @@ function showGreeting() {
 // Call greeting on load
 setTimeout(showGreeting, 1000);
 
-// Add mouse trail effect
-let mouseTrail = [];
-document.addEventListener("mousemove", function (e) {
-  mouseTrail.push({
-    x: e.clientX,
-    y: e.clientY,
-    time: Date.now(),
-  });
-
-  // Keep only recent positions
-  if (mouseTrail.length > 20) {
-    mouseTrail.shift();
-  }
-});
-
-// Add some interactive love reactions
+// Add interactive love reactions
 document
-  .querySelectorAll(".photo-frame, .message-card, .countdown-item")
+  .querySelectorAll(".carousel-slide, .message-card, .countdown-item")
   .forEach((element) => {
     element.addEventListener("click", function () {
-      this.style.transform = "scale(1.05)";
+      this.style.transform = "scale(1.02)";
       setTimeout(() => {
         this.style.transform = "";
       }, 200);
