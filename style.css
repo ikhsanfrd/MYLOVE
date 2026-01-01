@@ -1,0 +1,372 @@
+/* Romantic Website Styles */
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Floating hearts animation */
+.floating-hearts {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.heart {
+  position: absolute;
+  bottom: -20px;
+  font-size: 20px;
+  color: #ff6b6b;
+  animation: floatUp 8-15s linear infinite;
+  opacity: 0.7;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(255, 255, 255, 0.7) 100%
+  );
+  border-radius: 30px;
+  margin-bottom: 40px;
+  box-shadow: 0 10px 40px rgba(255, 107, 107, 0.2);
+}
+
+.title {
+  font-family: "Dancing Script", cursive;
+  font-size: 3.5rem;
+  color: #e74b9b;
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #666;
+  font-weight: 300;
+}
+
+/* Section Titles */
+.section-title {
+  font-family: "Dancing Script", cursive;
+  font-size: 2.5rem;
+  color: #e74b9b;
+  text-align: center;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.section-title::after {
+  content: "❤️";
+  display: block;
+  font-size: 1.5rem;
+  margin-top: 10px;
+}
+
+/* Photo Gallery */
+.gallery {
+  background: rgba(255, 255, 255, 0.85);
+  padding: 40px 30px;
+  border-radius: 30px;
+  margin-bottom: 40px;
+  box-shadow: 0 10px 40px rgba(255, 107, 107, 0.15);
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.photo-frame {
+  background: white;
+  padding: 15px;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.photo-frame:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(255, 107, 107, 0.25);
+}
+
+.photo-placeholder {
+  width: 100%;
+  height: 250px;
+  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.photo-placeholder:hover {
+  transform: scale(1.02);
+}
+
+.photo-placeholder span {
+  font-size: 4rem;
+  margin-bottom: 10px;
+}
+
+.photo-placeholder p {
+  color: #e74b9b;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+/* Image upload styling */
+.photo-placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.photo-caption {
+  text-align: center;
+  margin-top: 15px;
+  color: #e74b9b;
+  font-weight: 500;
+  font-family: "Dancing Script", cursive;
+  font-size: 1.3rem;
+}
+
+/* Message Section */
+.message-section {
+  margin-bottom: 40px;
+}
+
+.message-card {
+  background: linear-gradient(135deg, #fff5f5 0%, #ffe8e8 100%);
+  padding: 50px 40px;
+  border-radius: 30px;
+  box-shadow: 0 10px 40px rgba(231, 76, 155, 0.15);
+  max-width: 800px;
+  margin: 0 auto;
+  border: 2px solid rgba(231, 76, 155, 0.2);
+}
+
+.message-card h2 {
+  font-family: "Dancing Script", cursive;
+  font-size: 2.5rem;
+  color: #e74b9b;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.message-content {
+  text-align: center;
+}
+
+.romantic-text {
+  font-family: "Dancing Script", cursive;
+  font-size: 2rem;
+  color: #e74b9b;
+  margin-bottom: 20px;
+}
+
+.message-body {
+  font-size: 1.1rem;
+  line-height: 1.9;
+  color: #555;
+  margin-bottom: 20px;
+  font-weight: 300;
+}
+
+.signature {
+  font-family: "Dancing Script", cursive;
+  font-size: 1.8rem;
+  color: #e74b9b;
+  margin-top: 30px;
+}
+
+/* Countdown Section */
+.countdown-section {
+  background: rgba(255, 255, 255, 0.85);
+  padding: 40px 30px;
+  border-radius: 30px;
+  margin-bottom: 40px;
+  box-shadow: 0 10px 40px rgba(255, 107, 107, 0.15);
+}
+
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.countdown-item {
+  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  padding: 25px 20px;
+  border-radius: 20px;
+  min-width: 100px;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.countdown-item:hover {
+  transform: scale(1.05);
+}
+
+.countdown-number {
+  font-family: "Dancing Script", cursive;
+  font-size: 2.5rem;
+  color: #e74b9b;
+  display: block;
+  font-weight: 700;
+}
+
+.countdown-label {
+  font-size: 0.9rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-top: 5px;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 30px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(255, 255, 255, 0.7) 100%
+  );
+  border-radius: 30px;
+  margin-top: 20px;
+}
+
+.footer p {
+  color: #e74b9b;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.romantic-footer {
+  font-family: "Dancing Script", cursive;
+  font-size: 1.3rem;
+  margin-top: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .title {
+    font-size: 2.5rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .photo-grid {
+    grid-template-columns: 1fr;
+    padding: 0 10px;
+  }
+
+  .countdown {
+    gap: 15px;
+  }
+
+  .countdown-item {
+    min-width: 80px;
+    padding: 20px 15px;
+  }
+
+  .countdown-number {
+    font-size: 2rem;
+  }
+
+  .message-card {
+    padding: 30px 20px;
+  }
+}
+
+/* Romantic animations */
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.title {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Upload button styling */
+.upload-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(231, 76, 155, 0.9);
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 0.7rem;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.photo-placeholder:hover .upload-btn {
+  opacity: 1;
+}
